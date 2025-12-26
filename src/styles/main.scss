@@ -1,5 +1,7 @@
 $oneBlockSize: 100px;
+$gap: 1px;
 $oneRawSize: $oneBlockSize * 7 + 26px;
+$firstDayShift: $oneBlockSize + $gap;
 
 @for $i from 1 through 31 {
   .calendar__day:nth-child(#{$i}):before {
@@ -12,12 +14,12 @@ $start-day: ('mon' 0, 'tue' 1, 'wed' 2, 'thu' 3, 'fri' 4, 'sat' 5, 'sun' 6);
 @each $day, $multiplier in $start-day {
   .calendar--start-day-#{$day} {
     .calendar__day:first-child {
-      margin-left: 101px * $multiplier;
+      margin-left: $firstDayShift * $multiplier;
     }
   }
 }
 
-@for $i from 28 to 31 {
+@for $i from 28 through 31 {
   .calendar--month-length-#{$i} {
     .calendar__day:nth-child(n + #{$i + 1}) {
       visibility: hidden;
@@ -37,7 +39,7 @@ $start-day: ('mon' 0, 'tue' 1, 'wed' 2, 'thu' 3, 'fri' 4, 'sat' 5, 'sun' 6);
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
-  gap: 1px;
+  gap: $gap;
   max-width: $oneRawSize;
   padding: 10px;
   margin: auto;
@@ -54,6 +56,7 @@ $start-day: ('mon' 0, 'tue' 1, 'wed' 2, 'thu' 3, 'fri' 4, 'sat' 5, 'sun' 6);
     background-color: #eee;
     border: 1px solid black;
     cursor: pointer;
+    transition-duration: 0.5s;
 
     line-height: 98px;
     text-align: center;
@@ -62,6 +65,5 @@ $start-day: ('mon' 0, 'tue' 1, 'wed' 2, 'thu' 3, 'fri' 4, 'sat' 5, 'sun' 6);
   &__day:hover {
     background-color: #ffbfcb;
     transform: translateY(-20px);
-    transition-duration: 500ms;
   }
 }
